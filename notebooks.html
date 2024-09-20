@@ -437,7 +437,7 @@ For example, here’s some sample Matplotlib code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x176cc966100&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x111f9cf60d0&gt;
 </pre></div>
 </div>
 </div>
@@ -529,6 +529,81 @@ La gráfica muestra un patrón similar al de los ingresos. A mitad de mes, hay u
 </ol>
 <p>En resumen, el patrón observado en ambas series de tiempo sugiere que hay un factor recurrente a mitad de mes que afecta tanto el ingreso como la cantidad de órdenes. Esto podría estar relacionado con factores como pagos de sueldos, promociones especiales o patrones de consumo de los clientes.</p>
 <hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
+<span class="n">register_matplotlib_converters</span><span class="p">()</span>
+
+<span class="c1"># Leer el archivo CSV</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Davidlizcanom2486\Documents\Timeseries\jbook_ts202330\docs\BalajiFastFoodSales.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Convertir la columna de fecha a datetime</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Agrupar por fecha y sumar la cantidad de ventas diarias</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_ventas</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;transaction_amount&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Agrupar por fecha y sumar la cantidad de &#39;quantity&#39; diaria</span>
+<span class="n">df_grouped_quantity</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_quantity</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Configurar la figura para las predicciones de ventas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ARIMA - Predicción de Ventas Diarias&quot;</span><span class="p">)</span>
+
+<span class="c1"># Modelo ARIMA para &#39;total_ventas&#39;</span>
+<span class="n">model_ventas</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">fit_ventas</span> <span class="o">=</span> <span class="n">model_ventas</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Predicción para ventas</span>
+<span class="n">predictions_ventas</span> <span class="o">=</span> <span class="n">fit_ventas</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;levels&#39;</span><span class="p">)</span>
+
+<span class="c1"># Graficar las ventas observadas y las predicciones</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ventas Observadas&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="n">predictions_ventas</span><span class="p">[</span><span class="o">-</span><span class="mi">31</span><span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de Ventas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Mostrar gráfico de ventas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Configurar la figura para las predicciones de cantidad</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ARIMA - Predicción de Cantidad Diaria&quot;</span><span class="p">)</span>
+
+<span class="c1"># Modelo ARIMA para &#39;total_quantity&#39;</span>
+<span class="n">model_quantity</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">fit_quantity</span> <span class="o">=</span> <span class="n">model_quantity</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Predicción para cantidad</span>
+<span class="n">predictions_quantity</span> <span class="o">=</span> <span class="n">fit_quantity</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;levels&#39;</span><span class="p">)</span>
+
+<span class="c1"># Graficar la cantidad observada y las predicciones</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cantidad Observada&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="n">predictions_quantity</span><span class="p">[</span><span class="o">-</span><span class="mi">31</span><span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de Quantity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Mostrar gráfico de cantidad</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Davidlizcanom2486\miniconda3\envs\ts_venv\lib\site-packages\statsmodels\tsa\statespace\representation.py:374: FutureWarning: Unknown keyword arguments: dict_keys([&#39;typ&#39;]).Passing unknown keyword arguments will raise a TypeError beginning in version 0.15.
+  warnings.warn(msg, FutureWarning)
+</pre></div>
+</div>
+<img alt="_images/8eb2b9096f532db48a3dbac657ab030c02dbac7c4488b1bf1d760668956698f0.png" src="_images/8eb2b9096f532db48a3dbac657ab030c02dbac7c4488b1bf1d760668956698f0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Davidlizcanom2486\miniconda3\envs\ts_venv\lib\site-packages\statsmodels\tsa\statespace\representation.py:374: FutureWarning: Unknown keyword arguments: dict_keys([&#39;typ&#39;]).Passing unknown keyword arguments will raise a TypeError beginning in version 0.15.
+  warnings.warn(msg, FutureWarning)
+</pre></div>
+</div>
+<img alt="_images/86cef8ef641b1dceee748b032e142cfc325173e5f3bf903ee24e882bcc84bbe7.png" src="_images/86cef8ef641b1dceee748b032e142cfc325173e5f3bf903ee24e882bcc84bbe7.png" />
+</div>
+</div>
 </section>
 </section>
 
