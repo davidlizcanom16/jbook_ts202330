@@ -184,6 +184,8 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Content with notebooks</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
@@ -380,10 +382,37 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Content with notebooks</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-notebooks">Markdown + notebooks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#myst-markdown">MyST markdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-blocks-and-outputs">Code blocks and outputs</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-la-grafica-de-ventas-diarias-de-pizzas-en-2015">Análisis de la gráfica de ventas diarias de pizzas en 2015</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fluctuaciones-y-picos-de-ventas">Fluctuaciones y picos de ventas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picos-notables">Picos notables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posibles-patrones-estacionales">Posibles patrones estacionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eventos-clave">Eventos clave</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-regular-vs-dias-anomalos">Comportamiento regular vs. días anómalos</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-holt-winter-en-el-pronostico-de-ventas-en-restaurantes">El modelo Holt-Winter en el pronóstico de ventas en restaurantes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-la-serie-temporal">Análisis de la serie temporal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-del-modelo">Precisión del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justificacion-del-uso">Justificación del uso</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patrones-de-estacionalidad">1. <em>Patrones de Estacionalidad</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picos-notables-en-ventas">2. <em>Picos Notables en Ventas</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-regular-y-anomalos">3. <em>Comportamiento Regular y Anómalos</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ausencia-de-una-tendencia-clara">4. <em>Ausencia de una Tendencia Clara</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -437,7 +466,7 @@ For example, here’s some sample Matplotlib code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x1d6b63e7790&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x17af7f0fd00&gt;
 </pre></div>
 </div>
 </div>
@@ -448,26 +477,26 @@ For example, here’s some sample Matplotlib code:</p>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="c1"># Leer el archivo CSV (ajustado para Windows)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Davidlizcanom2486\Documents\Timeseries\jbook_ts202330\docs\BalajiFastFoodSales.csv&quot;</span><span class="p">)</span>
+<span class="c1"># Leer el archivo Excel</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Davidlizcanom2486\Documents\Timeseries\jbook_ts202330\docs\PizzaSales.xlsx&quot;</span><span class="p">)</span>
 
 <span class="c1"># Convertir la columna de fecha, permitiendo que pandas infiera el formato</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 
-<span class="c1"># Agrupar por fecha y sumar la cantidad de ventas diarias</span>
-<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_ventas</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;transaction_amount&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1"># Agrupar por fecha y sumar la cantidad de ventas diarias (Total_price)</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;order_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_ventas</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_price&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-<span class="c1"># Graficar la serie de tiempo</span>
+<span class="c1"># Graficar la serie de tiempo de ventas</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">],</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
 
 <span class="c1"># Etiquetas y título</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Serie de Tiempo de Ventas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Serie de Tiempo de Valor de Ventas Diarias&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de Ventas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de valor de Ventas&quot;</span><span class="p">)</span>
 
 <span class="c1"># Ajustar el eje Y</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Ajuste automático del eje Y</span>
 
 <span class="c1"># Ampliar el eje X y rotar etiquetas del eje X</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
@@ -477,17 +506,17 @@ For example, here’s some sample Matplotlib code:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># Agrupar por fecha y sumar la cantidad de &#39;quantity&#39; diaria</span>
-<span class="n">df_grouped_quantity</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_quantity</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1"># Agrupar por fecha y sumar la cantidad diaria (Quantity)</span>
+<span class="n">df_grouped_quantity</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;order_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_quantity</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-<span class="c1"># Graficar la serie de tiempo para la variable &#39;quantity&#39;</span>
+<span class="c1"># Graficar la serie de tiempo para la variable &#39;Quantity&#39;</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">],</span> <span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
 
 <span class="c1"># Etiquetas y título</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Serie de Tiempo de Quantity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Serie de Tiempo de Cantidad de pizzas Vendidas por dia&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de Quantity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de cantidad de pizzas&quot;</span><span class="p">)</span>
 
 <span class="c1"># Ajustar el eje Y</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Ajuste automático del eje Y</span>
@@ -503,107 +532,198 @@ For example, here’s some sample Matplotlib code:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ba2b6c56644b7ac44dea6a323907af4324a1a14754d40556e4d75237fc0f4c32.png" src="_images/ba2b6c56644b7ac44dea6a323907af4324a1a14754d40556e4d75237fc0f4c32.png" />
-<img alt="_images/36271da4f12ab487ed4fdb8a962c749367a1ed135eb1ef5c831827423819853d.png" src="_images/36271da4f12ab487ed4fdb8a962c749367a1ed135eb1ef5c831827423819853d.png" />
+<img alt="_images/32fb2bc3e2fcab6ea37e9357e74963fc02558aa32f7452ece2523581433f7395.png" src="_images/32fb2bc3e2fcab6ea37e9357e74963fc02558aa32f7452ece2523581433f7395.png" />
+<img alt="_images/2cd482c8d4d9effdad61412a6387fbaeaa777f23f5e3e834ba27b2da03d82a22.png" src="_images/2cd482c8d4d9effdad61412a6387fbaeaa777f23f5e3e834ba27b2da03d82a22.png" />
 </div>
 </div>
 <p>There is a lot more that you can do with outputs (such as including interactive outputs)
 with your book. For more information about this, see <a class="reference external" href="https://jupyterbook.org">the Jupyter Book documentation</a></p>
-<hr class="docutils" />
-<p>He trabajado con dos series de tiempo de los datos del local de comida india. La primera serie muestra el ingreso diario por ventas, y la segunda serie muestra la cantidad diaria de órdenes.</p>
-<p><em>Para la serie de ingresos:</em>
-Observé que el ingreso del local variaba bastante a lo largo del mes. En la gráfica, se puede ver que hay un patrón claro: alrededor de la mitad de cada mes, hay un pico significativo en el ingreso, que se acerca a los 3000 dólares. En el resto del mes, el ingreso se mantiene más estable, rondando los 1500 dólares.</p>
-<p>Este patrón puede deberse a varios factores:</p>
-<ol class="arabic simple">
-<li><p><em>Pago de Sueldos:</em> A menudo, en muchos lugares, los ingresos pueden ser más altos a mediados de mes debido al pago de sueldos o salarios, cuando los clientes pueden estar dispuestos a gastar más.</p></li>
-<li><p><em>Promociones o Eventos Especiales:</em> Podría haber promociones especiales o eventos que se realizan a mediados de mes, lo que impulsa las ventas.</p></li>
-<li><p><em>Ciclo de Compras:</em> Es posible que haya un ciclo de compras donde los clientes tienden a gastar más a mitad de mes.</p></li>
-</ol>
-<p><em>Para la serie de cantidad de órdenes:</em>
-La gráfica muestra un patrón similar al de los ingresos. A mitad de mes, hay un aumento en la cantidad de órdenes, que se acerca a las 75 órdenes diarias. En el resto del mes, la cantidad de órdenes se mantiene alrededor de 40.</p>
-<p>Esto puede ser explicado por los mismos motivos que para los ingresos:</p>
-<ol class="arabic simple">
-<li><p><em>Efectos del Pago de Sueldos:</em> Al igual que con los ingresos, la cantidad de órdenes puede aumentar a mediados de mes cuando los clientes tienen más disponibilidad económica.</p></li>
-<li><p><em>Promociones o Eventos Especiales:</em> Las promociones o eventos pueden también atraer más clientes a mitad de mes, lo que resulta en un aumento en el número de órdenes.</p></li>
-<li><p><em>Ciclo de Compras:</em> Las tendencias en el comportamiento del consumidor pueden llevar a un aumento en el número de órdenes a mitad de mes.</p></li>
-</ol>
-<p>En resumen, el patrón observado en ambas series de tiempo sugiere que hay un factor recurrente a mitad de mes que afecta tanto el ingreso como la cantidad de órdenes. Esto podría estar relacionado con factores como pagos de sueldos, promociones especiales o patrones de consumo de los clientes.</p>
-<hr class="docutils" />
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="analisis-de-la-grafica-de-ventas-diarias-de-pizzas-en-2015">
+<h1>Análisis de la gráfica de ventas diarias de pizzas en 2015<a class="headerlink" href="#analisis-de-la-grafica-de-ventas-diarias-de-pizzas-en-2015" title="Link to this heading">#</a></h1>
+<p>La gráfica de la serie de tiempo muestra un panorama detallado del comportamiento de las ventas diarias de pizzas durante todo el año 2015. Al observar los datos en conjunto, es posible profundizar en varios aspectos que ofrecen una visión más completa de cómo se desarrollaron las ventas a lo largo del tiempo.</p>
+<section id="fluctuaciones-y-picos-de-ventas">
+<h2>Fluctuaciones y picos de ventas<a class="headerlink" href="#fluctuaciones-y-picos-de-ventas" title="Link to this heading">#</a></h2>
+<p>A lo largo del año, se notan fluctuaciones significativas en el valor total de las ventas diarias. Estas variaciones reflejan cambios en la cantidad de pedidos recibidos, que pueden estar influenciados por distintos factores como la estacionalidad, promociones, fines de semana, o eventos específicos que incrementaron la demanda de pizzas.</p>
+<section id="picos-notables">
+<h3>Picos notables<a class="headerlink" href="#picos-notables" title="Link to this heading">#</a></h3>
+<p>Varios picos elevados se observan durante el año, con un máximo hacia finales de noviembre o principios de diciembre. Estos picos podrían coincidir con eventos especiales como días festivos (por ejemplo, Acción de Gracias en EE.UU. o el inicio de la temporada navideña), fines de semana más ocupados o promociones en el negocio de pizzas. Identificar qué eventos o circunstancias motivan estos aumentos en las ventas sería clave para planificar campañas de marketing o ajustar la logística y el inventario en futuras ocasiones.</p>
+</section>
+</section>
+<section id="posibles-patrones-estacionales">
+<h2>Posibles patrones estacionales<a class="headerlink" href="#posibles-patrones-estacionales" title="Link to this heading">#</a></h2>
+<p>El comportamiento de las ventas muestra algunos patrones que podrían estar relacionados con la estacionalidad. Aunque la gráfica no revela una tendencia ascendente o descendente clara, sí parece haber fluctuaciones recurrentes que podrían correlacionarse con ciclos de consumo típicos en ciertos períodos del año, como el verano, las festividades de fin de año o la temporada de regreso a clases.</p>
+</section>
+<section id="eventos-clave">
+<h2>Eventos clave<a class="headerlink" href="#eventos-clave" title="Link to this heading">#</a></h2>
+<p>Los negocios de comida rápida, en especial los que venden pizzas, suelen ver un incremento en ventas durante eventos deportivos (Super Bowl, torneos), celebraciones como Halloween o el Día de la Independencia, y fechas con festividades familiares. Esto es algo que se puede investigar en más detalle con análisis adicionales para identificar correlaciones con fechas clave.</p>
+</section>
+<section id="comportamiento-regular-vs-dias-anomalos">
+<h2>Comportamiento regular vs. días anómalos<a class="headerlink" href="#comportamiento-regular-vs-dias-anomalos" title="Link to this heading">#</a></h2>
+<p>Un punto importante es que, a lo largo del año, las ventas diarias oscilan entre los 1500 y 3000 dólares. Este rango parece ser el comportamiento habitual del negocio. Sin embargo, hay días en los que las ventas caen de manera drástica, llegando a valores cercanos a 0, lo que podría deberse a días de cierre, problemas operativos, o simplemente a días con baja demanda. Por otro lado, los días con picos altos indican una demanda muy por encima del promedio, lo que puede generar cargas operativas extra para el negocio.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
-<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
-<span class="n">register_matplotlib_converters</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importar las bibliotecas necesarias</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.holtwinters</span> <span class="kn">import</span> <span class="n">ExponentialSmoothing</span>
 
-<span class="c1"># Leer el archivo CSV</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Davidlizcanom2486\Documents\Timeseries\jbook_ts202330\docs\BalajiFastFoodSales.csv&quot;</span><span class="p">)</span>
+<span class="c1"># Leer el archivo Excel</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Davidlizcanom2486\Documents\Timeseries\jbook_ts202330\docs\PizzaSales.xlsx&quot;</span><span class="p">)</span>
 
-<span class="c1"># Convertir la columna de fecha a datetime</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="c1"># Convertir la columna de fecha, permitiendo que pandas infiera el formato</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 
-<span class="c1"># Agrupar por fecha y sumar la cantidad de ventas diarias</span>
-<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_ventas</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;transaction_amount&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1"># Agrupar por fecha y sumar la cantidad de ventas diarias (Total_price)</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;order_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_ventas</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_price&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-<span class="c1"># Agrupar por fecha y sumar la cantidad de &#39;quantity&#39; diaria</span>
-<span class="n">df_grouped_quantity</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_quantity</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="c1"># Ordenar por fecha en caso de que no esté ordenado</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;order_date&#39;</span><span class="p">)</span>
 
-<span class="c1"># Configurar la figura para las predicciones de ventas</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ARIMA - Predicción de Ventas Diarias&quot;</span><span class="p">)</span>
+<span class="c1"># Ajustar el modelo Holt-Winters</span>
+<span class="c1"># Vamos a usar el modo aditivo (si tienes estacionalidad en los datos)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ExponentialSmoothing</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> 
+                             <span class="n">seasonal</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> 
+                             <span class="n">seasonal_periods</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>  <span class="c1"># Si la estacionalidad es mensual</span>
+                             <span class="n">trend</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">)</span>  <span class="c1"># Considerar tendencia</span>
+<span class="n">hw_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
-<span class="c1"># Modelo ARIMA para &#39;total_ventas&#39;</span>
-<span class="n">model_ventas</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">fit_ventas</span> <span class="o">=</span> <span class="n">model_ventas</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="c1"># Realizar predicción para los próximos 30 días</span>
+<span class="n">forecast</span> <span class="o">=</span> <span class="n">hw_model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 
-<span class="c1"># Predicción para ventas</span>
-<span class="n">predictions_ventas</span> <span class="o">=</span> <span class="n">fit_ventas</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;levels&#39;</span><span class="p">)</span>
+<span class="c1"># Graficar la serie de tiempo original junto con la predicción</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">],</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Datos originales&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span> 
+         <span class="n">forecast</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pronóstico&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 
-<span class="c1"># Graficar las ventas observadas y las predicciones</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ventas Observadas&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="n">predictions_ventas</span><span class="p">[</span><span class="o">-</span><span class="mi">31</span><span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="c1"># Etiquetas y título</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Pronóstico de Ventas Diarias usando Holt-Winters basado en revision literaria&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de Ventas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de valor de Ventas&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="c1"># Mostrar gráfico de ventas</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># Ampliar el eje X y rotar etiquetas del eje X</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>  <span class="c1"># Mostrar un punto por mes</span>
 
-<span class="c1"># Configurar la figura para las predicciones de cantidad</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ARIMA - Predicción de Cantidad Diaria&quot;</span><span class="p">)</span>
-
-<span class="c1"># Modelo ARIMA para &#39;total_quantity&#39;</span>
-<span class="n">model_quantity</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">fit_quantity</span> <span class="o">=</span> <span class="n">model_quantity</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># Predicción para cantidad</span>
-<span class="n">predictions_quantity</span> <span class="o">=</span> <span class="n">fit_quantity</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;levels&#39;</span><span class="p">)</span>
-
-<span class="c1"># Graficar la cantidad observada y las predicciones</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;total_quantity&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cantidad Observada&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">df_grouped_quantity</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span> <span class="n">predictions_quantity</span><span class="p">[</span><span class="o">-</span><span class="mi">31</span><span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de Quantity&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="c1"># Mostrar gráfico de cantidad</span>
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Davidlizcanom2486\miniconda3\envs\ts_venv\lib\site-packages\statsmodels\tsa\statespace\representation.py:374: FutureWarning: Unknown keyword arguments: dict_keys([&#39;typ&#39;]).Passing unknown keyword arguments will raise a TypeError beginning in version 0.15.
-  warnings.warn(msg, FutureWarning)
+<img alt="_images/ea6bd4dea7eace83e806ae9e048406877eca3dc2733a94c2482f4891b6dd3c3c.png" src="_images/ea6bd4dea7eace83e806ae9e048406877eca3dc2733a94c2482f4891b6dd3c3c.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="el-modelo-holt-winter-en-el-pronostico-de-ventas-en-restaurantes">
+<h1>El modelo Holt-Winter en el pronóstico de ventas en restaurantes<a class="headerlink" href="#el-modelo-holt-winter-en-el-pronostico-de-ventas-en-restaurantes" title="Link to this heading">#</a></h1>
+<p>El modelo Holt-Winter es una opción adecuada para nuestro pronóstico de ventas en un restaurante debido a su capacidad para capturar tanto la <em>tendencia</em> como la <em>estacionalidad</em> de los datos, lo que es crucial en negocios con fluctuaciones cíclicas anuales como los restaurantes. Este tipo de modelo, como lo explican <em>Segura Cordero y Bracamonte Orozco</em>, fue seleccionado en un estudio sobre predicción de ventas en una cadena de restaurantes, ya que demostró ser el método más preciso entre seis alternativas evaluadas, incluyendo promedio móvil y regresión lineal.</p>
+<section id="analisis-de-la-serie-temporal">
+<h2>Análisis de la serie temporal<a class="headerlink" href="#analisis-de-la-serie-temporal" title="Link to this heading">#</a></h2>
+<p>El análisis de la serie temporal utilizado en dicho estudio mostró patrones cíclicos en las ventas, con picos en meses específicos, lo que confirmó la necesidad de un modelo que manejara estos ciclos recurrentes. Se utilizó el método de Holt-Winter *aditivo, que es ideal cuando las fluctuaciones estacionales tienen una magnitud constante a lo largo del tiempo (Segura Cordero y Bracamonte Orozco, 2021). Además, el estudio utilizó la *<em>prueba de Dickey-Fuller</em> para confirmar la estacionalidad en los datos, lo que validó aún más la elección del modelo.</p>
+</section>
+<section id="precision-del-modelo">
+<h2>Precisión del modelo<a class="headerlink" href="#precision-del-modelo" title="Link to this heading">#</a></h2>
+<p>El modelo Holt-Winter sobresalió en las pruebas al presentar el menor <em>error cuadrático medio</em> entre los métodos comparados, lo que garantiza una mayor precisión en las predicciones. En particular, la capacidad de este modelo para generar pronósticos a corto plazo, con un horizonte de cuatro años y un nivel de confianza del 95%, permitió a la cadena de restaurantes anticiparse a un aumento del 35% en la demanda, lo que demuestra su utilidad para la toma de decisiones estratégicas y operativas.</p>
+</section>
+<section id="justificacion-del-uso">
+<h2>Justificación del uso<a class="headerlink" href="#justificacion-del-uso" title="Link to this heading">#</a></h2>
+<p>En resumen, el uso del modelo Holt-Winter está justificado en nuestro caso debido a la estacionalidad marcada y el comportamiento cíclico de las ventas en el restaurante. Además, su implementación es accesible, no requiere software sofisticado ni personal experto, lo que facilita su adopción para optimizar la planificación de inventarios y otras decisiones clave.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importar las bibliotecas necesarias</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.holtwinters</span> <span class="kn">import</span> <span class="n">ExponentialSmoothing</span>
+
+<span class="c1"># Leer el archivo Excel</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Davidlizcanom2486\Documents\Timeseries\jbook_ts202330\docs\PizzaSales.xlsx&quot;</span><span class="p">)</span>
+
+<span class="c1"># Convertir la columna de fecha, permitiendo que pandas infiera el formato</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Agrupar por fecha y sumar la cantidad de ventas diarias (Total_price)</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;order_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total_ventas</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;total_price&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Ordenar por fecha en caso de que no esté ordenado</span>
+<span class="n">df_grouped</span> <span class="o">=</span> <span class="n">df_grouped</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;order_date&#39;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar el modelo Holt-Winters multiplicativo</span>
+<span class="c1"># Usamos el modelo multiplicativo para tendencia y estacionalidad</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ExponentialSmoothing</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> 
+                             <span class="n">seasonal</span><span class="o">=</span><span class="s1">&#39;mul&#39;</span><span class="p">,</span>  <span class="c1"># Multiplicativo para estacionalidad</span>
+                             <span class="n">seasonal_periods</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>  <span class="c1"># Estacionalidad mensual (si aplica)</span>
+                             <span class="n">trend</span><span class="o">=</span><span class="s1">&#39;mul&#39;</span><span class="p">)</span>  <span class="c1"># Multiplicativo para la tendencia</span>
+<span class="n">hw_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># Realizar predicción para los próximos 30 días</span>
+<span class="n">forecast</span> <span class="o">=</span> <span class="n">hw_model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># Graficar la serie de tiempo original junto con la predicción</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">],</span> <span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;total_ventas&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Datos originales&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">df_grouped</span><span class="p">[</span><span class="s1">&#39;order_date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">periods</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">),</span> 
+         <span class="n">forecast</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pronóstico&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># Etiquetas y título</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Pronóstico de Ventas Diarias usando Holt-Winters Multiplicativo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total de Ventas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Ampliar el eje X y rotar etiquetas del eje X</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>  <span class="c1"># Mostrar un punto por mes</span>
+
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="_images/8eb2b9096f532db48a3dbac657ab030c02dbac7c4488b1bf1d760668956698f0.png" src="_images/8eb2b9096f532db48a3dbac657ab030c02dbac7c4488b1bf1d760668956698f0.png" />
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Davidlizcanom2486\miniconda3\envs\ts_venv\lib\site-packages\statsmodels\tsa\statespace\representation.py:374: FutureWarning: Unknown keyword arguments: dict_keys([&#39;typ&#39;]).Passing unknown keyword arguments will raise a TypeError beginning in version 0.15.
-  warnings.warn(msg, FutureWarning)
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Davidlizcanom2486\miniconda3\envs\ts_venv\lib\site-packages\statsmodels\tsa\holtwinters\model.py:918: ConvergenceWarning: Optimization failed to converge. Check mle_retvals.
+  warnings.warn(
 </pre></div>
 </div>
-<img alt="_images/86cef8ef641b1dceee748b032e142cfc325173e5f3bf903ee24e882bcc84bbe7.png" src="_images/86cef8ef641b1dceee748b032e142cfc325173e5f3bf903ee24e882bcc84bbe7.png" />
+<img alt="_images/849223973a062ccd003cecd461c4a37d0fb133d701f91b321e19e61b5c5bd6c4.png" src="_images/849223973a062ccd003cecd461c4a37d0fb133d701f91b321e19e61b5c5bd6c4.png" />
 </div>
 </div>
+<p>El modelo Holt-Winters multiplicativo puede ser muy adecuado para predecir las ventas diarias de pizzas en 2015 debido a los patrones observados en la serie temporal descrita en el análisis.</p>
+<section id="patrones-de-estacionalidad">
+<h3>1. <em>Patrones de Estacionalidad</em><a class="headerlink" href="#patrones-de-estacionalidad" title="Link to this heading">#</a></h3>
+<p>En el análisis mencionas que hay fluctuaciones recurrentes que podrían correlacionarse con ciclos de consumo típicos durante ciertos períodos del año (verano, festividades, regreso a clases, etc.). El modelo multiplicativo es particularmente útil cuando los efectos estacionales no son constantes, sino proporcionales al nivel general de ventas. Esto significa que si, por ejemplo, las ventas suben en diciembre debido a festividades, el incremento estacional será mayor cuanto más altas sean las ventas regulares.</p>
+<ul class="simple">
+<li><p><em>Cómo ayuda el modelo multiplicativo</em>: Si las ventas de pizzas aumentan más durante temporadas altas, el modelo multiplicativo captura este fenómeno. A diferencia del modelo aditivo, que asume un cambio constante, el multiplicativo ajusta la estacionalidad de manera proporcional, lo que resulta en predicciones más precisas cuando hay efectos de este tipo.</p></li>
+</ul>
+</section>
+<section id="picos-notables-en-ventas">
+<h3>2. <em>Picos Notables en Ventas</em><a class="headerlink" href="#picos-notables-en-ventas" title="Link to this heading">#</a></h3>
+<p>Los picos observados en la serie, como los de noviembre o diciembre, podrían estar relacionados con eventos estacionales, festividades o promociones. El modelo multiplicativo puede captar estos aumentos si están relacionados con la estacionalidad o tendencias proporcionales al nivel de ventas.</p>
+<ul class="simple">
+<li><p><em>Ejemplo de comportamiento multiplicativo</em>: Si en un período de baja demanda (ej. febrero) las ventas solo suben un 10% por un evento, pero en diciembre (una época de alta demanda) suben un 30% por el mismo tipo de evento, el modelo multiplicativo reflejará adecuadamente este comportamiento, ya que asume que las fluctuaciones estacionales crecen en magnitud junto con el nivel general de ventas.</p></li>
+</ul>
+</section>
+<section id="comportamiento-regular-y-anomalos">
+<h3>3. <em>Comportamiento Regular y Anómalos</em><a class="headerlink" href="#comportamiento-regular-y-anomalos" title="Link to this heading">#</a></h3>
+<p>El modelo multiplicativo también puede gestionar días anómalos de manera eficiente. Dado que la estacionalidad y la tendencia se escalan en función del nivel de la serie, los días con ventas anormalmente bajas o altas pueden influir menos en las predicciones generales del modelo.</p>
+<ul class="simple">
+<li><p><em>Cómo maneja esto el modelo multiplicativo</em>: Los días con caídas significativas en las ventas o picos muy altos pueden ser tratados como variaciones estacionales proporcionales al nivel de ventas en lugar de ser vistos como desviaciones constantes. Esto suaviza el impacto de esos días anómalos en el modelo.</p></li>
+</ul>
+</section>
+<section id="ausencia-de-una-tendencia-clara">
+<h3>4. <em>Ausencia de una Tendencia Clara</em><a class="headerlink" href="#ausencia-de-una-tendencia-clara" title="Link to this heading">#</a></h3>
+<p>Aunque no parece haber una tendencia ascendente o descendente evidente en las ventas generales, un modelo multiplicativo puede ajustarse a fluctuaciones que dependen del nivel de ventas, lo que lo hace más flexible. Si, por ejemplo, hay períodos en los que el negocio tiene un nivel general más alto o más bajo de ventas, el modelo multiplicativo adaptará tanto la tendencia como la estacionalidad proporcionalmente a esos niveles.</p>
+</section>
+<section id="conclusion">
+<h3>Conclusión:<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h3>
+<p>El modelo Holt-Winters multiplicativo es adecuado para este escenario porque captura mejor los cambios en las ventas que son proporcionales al nivel general de demanda, algo que parece estar presente en la serie temporal de ventas de pizzas en 2015, especialmente en relación con los picos y patrones estacionales.</p>
+</section>
 </section>
 </section>
 
@@ -671,10 +791,37 @@ La gráfica muestra un patrón similar al de los ingresos. A mitad de mes, hay u
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Content with notebooks</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markdown-notebooks">Markdown + notebooks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#myst-markdown">MyST markdown</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-blocks-and-outputs">Code blocks and outputs</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-la-grafica-de-ventas-diarias-de-pizzas-en-2015">Análisis de la gráfica de ventas diarias de pizzas en 2015</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fluctuaciones-y-picos-de-ventas">Fluctuaciones y picos de ventas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picos-notables">Picos notables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posibles-patrones-estacionales">Posibles patrones estacionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eventos-clave">Eventos clave</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-regular-vs-dias-anomalos">Comportamiento regular vs. días anómalos</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-modelo-holt-winter-en-el-pronostico-de-ventas-en-restaurantes">El modelo Holt-Winter en el pronóstico de ventas en restaurantes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-la-serie-temporal">Análisis de la serie temporal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-del-modelo">Precisión del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justificacion-del-uso">Justificación del uso</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patrones-de-estacionalidad">1. <em>Patrones de Estacionalidad</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#picos-notables-en-ventas">2. <em>Picos Notables en Ventas</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-regular-y-anomalos">3. <em>Comportamiento Regular y Anómalos</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ausencia-de-una-tendencia-clara">4. <em>Ausencia de una Tendencia Clara</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
